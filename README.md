@@ -2,8 +2,10 @@
 
 Enable IP Forwarding so that UE traffic sent to internet:
 
-`sudo sysctl -w net.ipv4.ip_forward=1
-sudo iptables -t nat -A POSTROUTING -o <IFNAME> -j MASQUERADE`
+```
+sudo sysctl -w net.ipv4.ip_forward=1
+sudo iptables -t nat -A POSTROUTING -o <IFNAME> -j MASQUERADE
+```
 
 Dependencies:
 
