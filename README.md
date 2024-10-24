@@ -14,7 +14,7 @@ apt install cmake make gcc g++ pkg-config libfftw3-dev libmbedtls-dev libsctp-de
 ```
 
 ## Building:
-Clone and build srsRAN_Project with ZeroMQ:
+ - Clone and build srsRAN_Project with ZeroMQ:
 
 ```
 cd ~
@@ -27,7 +27,7 @@ make -j $(nproc)
 make test -j $(nproc)
 ```
 
-Clone and build srsRAN_4G with ZeroMQ:
+- Clone and build srsRAN_4G with ZeroMQ:
 
 ```
 cd ~
@@ -58,7 +58,7 @@ sudo docker compose up --build 5gc
 
 gNB:
 
-First we will download the configuration file of the gNB with ZeroMQ and then run it:
+- First we will download the configuration file of the gNB with ZeroMQ and then run it:
 
 ```
 cd srsRAN_Project/build/apps/gnb/
@@ -68,7 +68,7 @@ sudo ./gnb -c ./gnb_zmq.yaml
 
 srsUE:
 
-First we will download the configuration file of the srsUE with ZeroMQ and then run it:
+- First we will download the configuration file of the srsUE with ZeroMQ and then run it:
 
 ```
 cd /srsRAN_4G/build/srsue/src/
