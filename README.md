@@ -82,8 +82,54 @@ sudo ip ro add 10.45.0.0/16 via 10.53.1.2
 sudo ip netns exec ue1 ip route add default via 10.45.1.1 dev tun_srsue
 ```
 
-Do the testing provided in the docs.
+## Testing:
+1. **Check the host routing table:**
 
+```
+route -n
+```
 
+Output: 
 
+2. **Check the UE routing table:**
+
+```
+sudo ip netns exec ue1 route -n
+```
+
+3. **Ping:**
+ - Uplink:
+   
+   ```
+   sudo ip netns exec ue1 ping 10.45.1.1
+   ```
+   
+ - Downlink:
+   
+   ```
+   ping 10.45.1.2
+   ```
+   
+4. **iPerf3:**
+   - Server:
+      - Open a shell of the core container and run this:
+        
+        ```
+        iperf3 -s -i 1
+        ```
+        
+   - Client:
+     - In the host run this through the ue namespace:
+
+          ```
+          # TCP
+          sudo ip netns exec ue1 iperf3 -c 10.45.1.1 -i 1 -t 60
+          # or UDP
+          sudo ip netns exec ue1 iperf3 -c 10.45.1.1 -i 1 -t 60 -u -b 10M
+          ```
+          
+
+          
+   
+   
 
