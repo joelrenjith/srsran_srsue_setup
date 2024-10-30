@@ -166,13 +166,13 @@ sudo ip netns exec ue1 route -n
 docker load -i lfe_image.tar
  '''
 - Create a container from the imported image & run it:
-- Run '''docker image list''' and find the correct image id
+- Run ```docker image list``` and find the correct image id
 - Create a container from the image:
-  '''
+  ```
   docker container create image_id
   docker ps -a
   docker exec -it container_id bash
-  '''
+  ```
  - ....Code to upload LFE image.....
  - ....code to connect lfe to same docker network as open5gs core
  - .... route command for gateway
