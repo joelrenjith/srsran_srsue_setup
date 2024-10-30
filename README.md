@@ -1,6 +1,7 @@
 # srsran_srsue_setup
 
 Enable IP Forwarding so that UE traffic sent to internet:
+ - Here `IFNAME` is the interface in the host that connects to the internet.
 
 ```
 sudo sysctl -w net.ipv4.ip_forward=1
