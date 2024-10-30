@@ -156,8 +156,14 @@ sudo ip netns exec ue1 route -n
   - Now we can send user traffic to the core and get responses:
    
     ```
-    sudo ip netns exec ue1 curl ping www.google.com    
-    sudo ip netns exec ue1 curl wget www.example.com
+    sudo ip netns exec ue1 ping www.google.com    
+    sudo ip netns exec ue1 curl www.example.com
     ```
+
+## LFE injection:
+ - ....Code to upload LFE image.....
+ - ....code to connect lfe to same docker network as open5gs core
+ - .... route command for gateway
+ - 
    
 
