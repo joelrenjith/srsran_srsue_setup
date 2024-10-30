@@ -79,7 +79,7 @@ sudo ./gnb -c ./gnb_zmq.yaml
    wget https://docs.srsran.com/projects/project/en/latest/_downloads/fbb79b4ff222d1829649143ca4cf1446/ue_zmq.conf
    sudo ./srsue ./ue_zmq.conf
    ```
-## Routing Configuration
+## Routing Configuration:
 
 ```
 sudo ip ro add 10.45.0.0/16 via 10.53.1.2
