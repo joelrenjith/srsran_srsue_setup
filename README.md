@@ -47,7 +47,7 @@ The following order should be used when running the network:
 2. gNB
 3. UE
 
-Open5GS Core:
+**Open5GS Core**:
 
  - We will be running the dockerized version of the Open5GS given in srsRAN_Project:
    
@@ -56,7 +56,7 @@ cd ./srsRAN_Project/docker
 sudo docker compose up --build 5gc
 ```
 
-gNB:
+**gNB**:
 
 - First we will download the configuration file of the gNB with ZeroMQ and then run it:
 
@@ -66,15 +66,18 @@ wget https://docs.srsran.com/projects/project/en/latest/_downloads/a7c34dbfee2b7
 sudo ./gnb -c ./gnb_zmq.yaml
 ```
 
-srsUE:
+**srsUE**:
+- First we add a network space for our UE.
+   ```
+   sudo ip netns add ue1
+   ```
+- Then we will download the configuration file of the srsUE with ZeroMQ and then run it:
 
-- First we will download the configuration file of the srsUE with ZeroMQ and then run it:
-
-```
-cd /srsRAN_4G/build/srsue/src/
-wget https://docs.srsran.com/projects/project/en/latest/_downloads/fbb79b4ff222d1829649143ca4cf1446/ue_zmq.conf
-sudo ./srsue ./ue_zmq.conf
-```
+   ```
+   cd /srsRAN_4G/build/srsue/src/
+   wget https://docs.srsran.com/projects/project/en/latest/_downloads/fbb79b4ff222d1829649143ca4cf1446/ue_zmq.conf
+   sudo ./srsue ./ue_zmq.conf
+   ```
 ## Routing Configuration
 
 ```
@@ -119,7 +122,7 @@ sudo ip netns exec ue1 route -n
         ```
         
    - Client:
-     - In the host run this through the ue namespace:
+     - In the host run this through the ue network space:
 
           ```
           # TCP
@@ -128,8 +131,32 @@ sudo ip netns exec ue1 route -n
           sudo ip netns exec ue1 iperf3 -c 10.45.1.1 -i 1 -t 60 -u -b 10M
           ```
           
-
-          
+## Sending user traffic to core:
+ - **UE DNS Config:**
+   - Create a directory for the UE network space if not done already:
+    
+    ```
+    sudo mkdir -p /etc/netns/ue1
+    ```
+    
+   - Copy your current resolv.conf into the ue1 namespace:
+     
+     ```
+     sudo cp /etc/resolv.conf /etc/netns/ue1/resolv.conf
+     ```
+     
+   - Open `/etc/netns/ue1/resolv.conf` and add these 2 lines:
+     
+     ```
+     nameserver 8.8.8.8
+     nameserver 1.1.1.1
+     ```
    
+  - Now we can send user traffic to the core and get responses:
+   
+    ```
+    sudo ip netns exec ue1 curl ping www.google.com    
+    sudo ip netns exec ue1 curl wget www.example.com
+    ```
    
 
