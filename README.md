@@ -176,6 +176,10 @@ docker load -i lfe_image.tar
  - ....Code to upload LFE image.....
  - ....code to connect lfe to same docker network as open5gs core
  - .... route command for gateway
- - 
+
+## Multi-UE:
+```
+QT_QPA_PLATFORM=offscreen python3 multi_ue_scenario.py
+```
    
 
