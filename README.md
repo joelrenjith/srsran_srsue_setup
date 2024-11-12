@@ -179,6 +179,7 @@ docker load -i lfe_image.tar
 
 ## Multi-UE:
 ```
+cd /etc/bin/
 QT_QPA_PLATFORM=offscreen python3 multi_ue_scenario.py
 ```
    
