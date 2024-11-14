@@ -178,9 +178,34 @@ docker load -i lfe_image.tar
  - .... route command for gateway
 
 ## Multi-UE:
-```
-cd /usr/bin/
-QT_QPA_PLATFORM=offscreen python3 multi_ue_scenario.py
-```
+ - Follow the instructions here: [Multi UE Emulation with srsRAN](https://docs.srsran.com/projects/project/en/latest/tutorials/source/srsUE/source/index.html#multi-ue-emulation) for making changes and running ṭhe core, gNB and UEs.
+ - For GNU Companion, run the following command. (Note that only after running this will the UEs connect to the core).
+
+   ```
+   cd /usr/bin/
+   QT_QPA_PLATFORM=offscreen python3 multi_ue_scenario.py
+   ```
+  
+ - Set the gateways as done before.
+   
+## PulledPork:
+ - Refer [PulledPork3 Setup](https://github.com/shirkdog/pulledpork3) to setup Pulled Pork.
+ - In the HLDE container, start a webserver in the same directory where you are storing the updated ruleset.
+ - Open `pulledpork.py` in the LFE conatiner and do the following change:
+
+   ```
+   RULESET_URL_SNORT_COMMUNITY = 'http://<ip of hlde webserver>:<port of hlde webserver>/<name of the tar file with the updated ruleset.>'
+   ```
+
+ - In the HLDE, the directory format of the ruleset should look like this:
+
+   ```
+   tar -tzf snort3-community-rules.tar.gz :
+   ./
+   ./snort3-community-rules/
+   ./snort3-community-rules/snort3-community.rules
+   ```
+  
+ - Run pulled pork and snort as specified in [PulledPork3 Setup](https://github.com/shirkdog/pulledpork3)
    
 
