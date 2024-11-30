@@ -169,7 +169,7 @@ sudo ip netns exec ue1 route -n
    QT_QPA_PLATFORM=offscreen python3 multi_ue_scenario.py
    ```
   
- - Do the UE DNS Config for the UEs as we did in the previous section.
+ - Do the UE DNS Config for the UEs as we did in the [previous section](.
 
 ## LFE Injection and HLDE Connection:
 - Download the docker_compose.yml provided here into your host and run the following command:
