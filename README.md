@@ -169,7 +169,7 @@ sudo ip netns exec ue1 route -n
    QT_QPA_PLATFORM=offscreen python3 multi_ue_scenario.py
    ```
   
- - Do the UE DNS Config for the UEs as we did in the [previous section](.
+ - Do the UE DNS Config for the UEs as we did in the [previous section](https://github.com/joelrenjith/srsran_srsue_setup/blob/main/README.md#sending-user-traffic-to-core).
 
 ## LFE Injection and HLDE Connection:
 - Download the docker_compose.yml provided here into your host and run the following command:
@@ -182,9 +182,10 @@ sudo ip netns exec ue1 route -n
    - `docker_ran` (subnet : `10.53.1.0`) is the docker network for srsRAN and Open5Gs. The LFE is connected to this network. 
    - `packetHighway` (subnet : `10.53.2.0`) is the docker network connecting the LFE and HLDE. Both LFE and HLDE are connected to this network.
 - Now run `gateways.sh` given here in the host to setup the routing for the overall architetcure. All traffic going from RAN to CORE will pass through LFE. (This also conatins the normal gateway commands for the srsRAN setup.)
-
+- Test the UE connections once more.(Incase it inst wokring, just open another terminal and open a shell into the LFE container).
    
 ## PulledPork:
+ - The below setup has been already implemented in the LFE container. This is just for your reference.
  - Refer [PulledPork3 Setup](https://github.com/shirkdog/pulledpork3) to setup Pulled Pork.
  - In the HLDE container, start a webserver in the same directory where you are storing the updated ruleset.
  - Open `pulledpork.py` in the LFE conatiner and do the following change:
@@ -203,5 +204,53 @@ sudo ip netns exec ue1 route -n
    ```
   
  - Run pulled pork and snort as specified in [PulledPork3 Setup](https://github.com/shirkdog/pulledpork3)
+
+## Runnig the entire setup:
+ - Open a new terminal and open a shell into the LFE container.
+   - Run the following commands command to setup the server for pulledpork to pull rules
+
+     ```
+     cd Data/Rules
+     ./serve.sh
+     ```
+
+   - Run the following command to start the SSH server for Rsync.
+
+     ```
+     cd /app
+     ./sshStartup.sh
+     ```
+     
+   - Run the following command to have the HLDE runnig to parse and evaluate traffic
+
+     ```
+     ./run_hlde.sh
+     ```
+     
+ - Open two terminals and open a shell into the LFE container in both of them as root and run this command in both.
+
+   ```
+   cd tdir
+   ```
+
+   - Now in one terminal run the following to run snort:
+
+     ```
+     ./snortStartup.sh
+     ```
+     
+   - In the other terminal run the following script that runs pulledpork, rsync and tshark.
+
+     ```
+     ./run.sh
+     ```
+     
+     - You might see a warnning from pulledpork with error code 404 telling it couldnt find the ruleset file. This is fine because initially the HLDE wouldn't have made a ruleset as it didnt get any malicious traffic yet.
+ - Now in the host you can run:
+
+    ```
+    sudo ip netns exec <ue name> <command you want to run>
+    ```
+    - You can try sending just benign traffic or simulate mailcious traffic using tools such as `hping`.
    
 
