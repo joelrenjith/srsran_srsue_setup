@@ -169,7 +169,7 @@ sudo ip netns exec ue1 route -n
    QT_QPA_PLATFORM=offscreen python3 multi_ue_scenario.py
    ```
   
- - Set the gateways as done before.
+ - Do the UE DNS Config for the UEs as we did in the previous section.
 
 ## LFE Injection and HLDE Connection:
 - Download the docker_compose.yml provided here into your host and run the following command:
@@ -181,6 +181,7 @@ sudo ip netns exec ue1 route -n
 - This will setup the LFE and HLDE as two containers and the connections to the existing architecture will also be done here.
    - `docker_ran` (subnet : `10.53.1.0`) is the docker network for srsRAN and Open5Gs. The LFE is connected to this network. 
    - `packetHighway` (subnet : `10.53.2.0`) is the docker network connecting the LFE and HLDE. Both LFE and HLDE are connected to this network.
+- Now run `gateways.sh` given here in the host to setup the routing for the overall architetcure. All traffic going from RAN to CORE will pass through LFE. (This also conatins the normal gateway commands for the srsRAN setup.)
 
    
 ## PulledPork:
