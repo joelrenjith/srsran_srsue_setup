@@ -160,23 +160,6 @@ sudo ip netns exec ue1 route -n
     sudo ip netns exec ue1 curl www.example.com
     ```
 
-## LFE injection:
-- Import the LFE image as follows:
- '''
-docker load -i lfe_image.tar
- '''
-- Create a container from the imported image & run it:
-- Run ```docker image list``` and find the correct image id
-- Create a container from the image:
-  ```
-  docker container create image_id
-  docker ps -a
-  docker exec -it container_id bash
-  ```
- - ....Code to upload LFE image.....
- - ....code to connect lfe to same docker network as open5gs core
- - .... route command for gateway
-
 ## Multi-UE:
  - Follow the instructions here: [Multi UE Emulation with srsRAN](https://docs.srsran.com/projects/project/en/latest/tutorials/source/srsUE/source/index.html#multi-ue-emulation) for making changes and running ṭhe core, gNB and UEs.
  - For GNU Companion, run the following command. (Note that only after running this will the UEs connect to the core).
@@ -187,6 +170,18 @@ docker load -i lfe_image.tar
    ```
   
  - Set the gateways as done before.
+
+## LFE Injection and HLDE Connection:
+- Download the docker_compose.yml provided here into your host and run the following command:
+  
+  ```
+  docker compose up
+  ```
+  
+- This will setup the LFE and HLDE as two containers and the connections to the existing architecture will also be done here.
+   - `docker_ran` (subnet : `10.53.1.0`) is the docker network for srsRAN and Open5Gs. The LFE is connected to this network. 
+   - `packetHighway` (subnet : `10.53.2.0`) is the docker network connecting the LFE and HLDE. Both LFE and HLDE are connected to this network.
+
    
 ## PulledPork:
  - Refer [PulledPork3 Setup](https://github.com/shirkdog/pulledpork3) to setup Pulled Pork.
