@@ -32,7 +32,7 @@ make test -j $(nproc)
 
 ```
 cd ~
-git clone https://github.com/srsran/srsRAN_Project.git
+git clone https://github.com/srsran/srsRAN_4G.git
 cd srsRAN_Project/
 mkdir build
 cd build/
