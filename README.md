@@ -206,7 +206,7 @@ sudo ip netns exec ue1 route -n
  - Run pulled pork and snort as specified in [PulledPork3 Setup](https://github.com/shirkdog/pulledpork3)
 
 ## Runnig the entire setup:
- - Open a new terminal and open a shell into the LFE container.
+ - Open a new terminal and open a shell into the HLDE container.
    - Run the following commands command to setup the server for pulledpork to pull rules
 
      ```
